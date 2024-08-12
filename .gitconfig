@@ -1,0 +1,2 @@
+[format]
+    pretty = "%h %an %s"
