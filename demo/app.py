@@ -1,4 +1,5 @@
 import time
+import sox
 import torch
 try:
     import torch_musa
@@ -66,6 +67,8 @@ if args.adapter_path and os.path.exists(args.adapter_path):
 if args.lora_dir and os.path.exists(args.lora_dir):
     model_config[global_task].lora_dir = args.lora_dir
 
+if args.task:
+    model_config[global_task].prompt_key = 'ast' if args.task == 'mtl' else args.task
 
 device = str(get_device())
 logger.info("This demo will run on {}".format(device.upper()))
@@ -106,17 +109,16 @@ logging.info(f"Input data type: {dtype}")
 
 context_scope = torch.musa.amp.autocast if 'musa' in device else torch.cuda.amp.autocast
 
+def convert(inputfile, outfile):
+    sox_tfm = sox.Transformer()
+    sox_tfm.set_output_format(
+            file_type="wav", channels=1, encoding="signed-integer", rate=16000, bits=16
+    )
+    sox_tfm.build(inputfile, outfile)
 
 def process_wav(task, wav_path):
     audio_raw, sample_rate = torchaudio.load(wav_path)
-    if sample_rate != 16000:
-        # resample the data
-        resampler = Resample(orig_freq=sample_rate, new_freq=16000)
-        audio_raw = resampler(audio_raw)
-
-    if audio_raw.shape[0] > 1:
-        # convert to mono
-        audio_raw = audio_raw.mean(dim=0, keepdim=True)
+    assert sample_rate == 16000 and audio_raw.shape[0] == 1
 
     audio_raw = audio_raw[0]
     duration = audio_raw.shape[0] / 16000.
@@ -151,6 +153,8 @@ def unify_forward(task, audio_file):
     overall_st = time.time()
     with torch.no_grad():
         st = time.time()
+        convert(audio_file, audio_file + '.16k.wav')
+        audio_file = audio_file + '.16k.wav'
         items = process_wav(task, audio_file)
         et = time.time()
         logger.info(f"Process wav takes {et - st}s")
@@ -212,6 +216,8 @@ def unify_forward_stream(task, audio_file):
     this_model = model[task]['model']
     this_device = model[task]['device']
     with torch.no_grad():
+        convert(audio_file, audio_file + '.16k.wav')
+        audio_file = audio_file + '.16k.wav'
         items = process_wav(task, audio_file)
         batch = process_batch([items], tokenizer=this_tokenizer)
         for key in batch.keys():
