@@ -1,0 +1,8 @@
+FROM mtspeech/mooer:v0.1-rc2.1.0-v1.1.0-qy2
+ENV PYTHONIOENCODING UTF-8
+ENV LC_ALL C
+ENV PYTHONPATH /workspace/MooER/src:
+RUN /opt/conda/envs/py38/bin/pip install gradio==4.41.0
+WORKDIR /workspace/MooER
+RUN cp /home/* /workspace/MooER
+

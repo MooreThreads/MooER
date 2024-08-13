@@ -1,18 +1,24 @@
 The MooER from Moore Threads is licensed under the MIT License listed below. Copyright (c) 2023-2024 Moore Threads Technology Co., Ltd("Moore Threads"). All rights reserved.
 Terms of the MIT License
+
 -------------------------------------------------------------------------
+
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
 -------------------------------------------------------------------------
+
 The following copyright statements and licenses apply to various open source software/model
 packages (or portions thereof) that are distributed with this MooER. MooER that
 includes this file does not necessarily use all the open source software packages referred
 to below and may also only use portions of a given package. Some open source software
 packages referred to below may have been modified by Moore Threads Technology Co., Ltd
+
 -------------------------------------------------------------------------
+
 SLAM-LLM
 Copyright (c) 2024 Ziyang Ma
 
@@ -33,7 +39,9 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
 -------------------------------------------------------------------------
+
 FunASR
 
 MIT License
@@ -57,7 +65,9 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
 -------------------------------------------------------------------------
+
 FunASR model
 Copyright (C) [2023-2028] Alibaba Group. All rights reserved.
 
@@ -129,7 +139,9 @@ FunASR 模型开源协议
 如果您对本协议有任何问题或意见，请联系我们。
 
 版权所有© [2023-2028] [阿里巴巴集团]。保留所有权利。
+
 -------------------------------------------------------------------------
+
 Qwen/Qwen2-7B-Instruct
 Copyright [yyyy] [name of copyright owner]
 
