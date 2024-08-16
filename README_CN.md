@@ -1,24 +1,24 @@
 <p align="left">
-        <strong>English</strong> &nbsp｜ &nbsp <a href="README_CN.md"><strong>中文</strong></a> &nbsp
+        <strong>中文</strong> &nbsp｜ &nbsp <a href="README.md"><strong>English</strong></a> &nbsp
 </p>
 <br><br>
 
-<h1 align="center">MooER (摩耳): an LLM-based Speech Recognition and Translation Model from Moore Threads </h1>
+<h1 align="center">MooER (摩耳): 基于大语言模型的语音识别与语音翻译系统 </h1>
 
 <div align='center'>
-    <a href='https://scholar.google.com/citations?user=eYP4TmgAAAAJ&hl=zh-CN&oi=ao' target='_blank'><u>Zhenlin Liang</u></a><sup>†</sup>&emsp;
-    <a href='https://scholar.google.com/citations?user=Yrn4Q1IAAAAJ&hl=zh-CN' target='_blank'>Junhao Xu</a><sup>†</sup>&emsp;
-    <a href='http://yiliu.org.cn' target='_blank'><u>Yi Liu</u></a>&emsp;
+    <a href='https://scholar.google.com/citations?user=eYP4TmgAAAAJ&hl=zh-CN&oi=ao' target='_blank'><u>梁镇麟</u></a><sup>†</sup>&emsp;
+    <a href='https://scholar.google.com/citations?user=Yrn4Q1IAAAAJ&hl=zh-CN' target='_blank'>许隽昊</a><sup>†</sup>&emsp;
+    <a href='http://yiliu.org.cn' target='_blank'><u>刘艺</u></a>&emsp;
     <br>
-    <a href='' target='_blank'>Yichao Hu</a>&emsp;
-    <a href='' target='_blank'>Jian Li</a>&emsp;
-    <a href='' target='_blank'>Yajun Zheng</a>&emsp;
-    <a href='https://scholar.google.com/citations?hl=zh-CN&user=fTYtreAAAAAJ' target='_blank'><u>Meng Cai</u></a>&emsp;
-    <a href='' target='_blank'>Hua Wang</a>&emsp;
+    <a href='' target='_blank'>胡一超</a>&emsp;
+    <a href='' target='_blank'>黎健</a>&emsp;
+    <a href='' target='_blank'>郑亚军</a>&emsp;
+    <a href='https://scholar.google.com/citations?hl=zh-CN&user=fTYtreAAAAAJ' target='_blank'><u>蔡猛</u></a>&emsp;
+    <a href='' target='_blank'>王华</a>&emsp;
 </div>
 
 <div align='center'>
-    <small><sup>†</sup> equal contribution</small>
+    <small><sup>†</sup> 共同一作</small>
 </div>
 
 
@@ -33,22 +33,22 @@
 </div>
 <br>
 
-## 🔥 Updates
+## 🔥 更新
 
-- **`2024/08/09`**: We released [a Gradio demo](https://mooer-speech.mthreads.com:10077/) running on Moore Threads S4000.
-- **`2024/08/09`**: We released the inference code and the pretrained speech recognition and speech translation (zh->en) models using 5000 hours of data.
-- **`2024/08/09`**: We release MooER v0.1 technical report on [arXiv](https://arxiv.org/abs/2408.05101).
+- **`2024/08/09`**: 我们推出了[基于Gradio的在线演示](https://mooer-speech.mthreads.com:10077/)。该演示系统运行在摩尔线程S4000服务器上。
+- **`2024/08/09`**: 我们开源了推理代码，并同时开放了多个基于5000小时数据训练的语音识别及语音翻译（中->英）模型。欢迎试用！
+- **`2024/08/09`**: 我们在arXiv上发布了 MooER v0.1 的[技术报告](https://arxiv.org/abs/2408.05101).
 
 
 
-## 📖 Introduction
+## 📖 介绍
 
-We introduce **MooER (摩耳)**: an LLM-based speech recognition and translation model developed by Moore Threads. With the *MooER* framework, you can transcribe the speech into text (automatic speech recognition, ASR) and translate the speech into other languages (automatic speech translation, AST) in an LLM-based end-to-end manner. Some of the evaluation results of the *MooER* are presented in the subsequent section. More detailed experiments, along with our insights into model configurations, training strategies, etc, are provided in our [technical report](https://arxiv.org/abs/2408.05101).
+在本工作中，我们推出了**摩耳大模型（英文名：MooER）**—— 一个由摩尔线程开发的、基于大语言模型（Large Language Model，LLM）的语音识别和语音翻译系统。通过摩耳框架，您可以基于大语言模型，以端到端的方式，将输入语音自动转录为文本（即*语音识别*），并将其翻译为其它语言（即*语音翻译*）。关于MooER的具体效果，您可以查阅下文中有关*评测结果*的部分。在我们公布的[技术报告](https://arxiv.org/abs/2408.05101)中，我们提供了更详细的实验结果，并分享了我们对模型配置、训练策略等方面的理解。
 
-We proudly highlight that *MooER* is developed using Moore Threads S4000 GPUs. To the best of our knowledge, **this is the first LLM-based speech model trained and inferred using entirely domestic GPUs.**
+我们自豪地指出，我们开源摩耳大模型完全采用摩尔线程S4000 GPU开发。**据我们所知，这是目前第一个完全使用国产GPU训练和推理的语言大模型。**
 
-> [!Note]
-> We are going to release the training code for *MooER*, as well as models trained with more data. Please stay tuned!
+> [!note]
+> 我们近期即将发布摩耳大模型的训练代码，并开源使用更大量数据训练的模型。敬请关注！
 
 <br>
 <p align="center">
@@ -56,31 +56,32 @@ We proudly highlight that *MooER* is developed using Moore Threads S4000 GPUs. T
 <p>
 <br>
 
-## 🥊 Evaluation Results
+## 🥊 评测结果
 
-We present the training data and the evaluation results below. For more comprehensive information, please refer to our [report](https://arxiv.org/pdf/2408.05101).
+此部分展示了我们使用的训练集和评测结果。更多其它信息，请参考我们的[技术报告](https://arxiv.org/pdf/2408.05101)。
 
-### Training data
+### 训练数据
 
-We utilize 5,000 hours of speech data (MT5K) to train our basic *MooER-5K* model. The data sources include:
+我们使用5000小时数据（我们称之为MT5K），用于训练我们的初版摩耳大模型。这些数据组成如下：
 
-| Dataset          | Duration          |
+| 数据集          | 时长（小时）          |
 |---------------|---------------|
-| aishell2 | 137h          |
-| librispeech | 131h      |
-| multi_cn | 100h          |
-| wenetspeech  | 1361h     |
-| in-house data | 3274h  |
+| aishell2 | 137          |
+| librispeech | 131      |
+| multi_cn | 100          |
+| wenetspeech  | 1361     |
+| in-house data | 3274  |
 
-Note that, data from the open-source datasets were randomly selected from the full training set. The in-house speech data, collected internally without transcription, were transcribed using a third-party ASR service.
+需要注意的是，MT5K中使用的开源数据，是从完整开源数据集中随机选择的子集。由于我们内部收集的数据只有音频，没有对应文本，因此我们采用第三方提供的语音识别（ASR）服务，自动生成文本标签。
 
-Since all the above datasets were originally collected only for the speech recognition task, no translation labels are available. We leveraged a third-party machine translation service to generate pseudo-labels for translation. No data filtering techniques were applied.
+由于上述所有数据集均是针对语音识别任务设计的，因此没有可用的翻译标签（即对应的英文文本）。为了让模型具有翻译能力，我们采用第三方提供的机器翻译服务，自动生成翻译标签。为了尽可能简化数据采集流程，在整个数据处理过程中，我们没有使用任何数据过滤技术。
 
-At this moment, we are also developing a new model trained with 80,000 hours of speech data.
+除了以上5000小时数据外，我们正在使用80000小时数据进行更大规模摩耳大模型的训练。
 
-### Speech Recognition
 
-The performance of speech recognition is evaluated using word error rate (WER) and character error rate (CER).
+### 语音识别效果
+
+语音识别效果采用词错误率（Word Error Rate，WER）或字错误率（Character Error Rate，CER）表示。
 
 <table>
   <tr>
@@ -238,9 +239,9 @@ The performance of speech recognition is evaluated using word error rate (WER) a
   </tr>
 </table>
 
-### Speech Translation (zh -> en)
+### 语音翻译效果 (中翻英)
 
-For speech translation, the performance is evaluated using BLEU score.
+语音翻译效果采用BLEU分数表示。
 
 | Testset | Speech-LLaMA | Whisper-large-v3 | Qwen-audio | Qwen2-audio | SeamlessM4T-v2 | MooER-5K | MooER-5K-MTL |
 |--------|-------------|-------------------|------------|-------------|-----------------|--------|--------------|
@@ -249,31 +250,31 @@ For speech translation, the performance is evaluated using BLEU score.
 |CCMT2019 dev | -  | 15.9 | 12.0 | - | 14.8 | - | **19.6** |
 
 
-## 🏁 Getting Started
+## 🏁 使用指南
 
-### 🛠️ Build Environtment
+### 🛠️ 环境搭建
 
-Currently, only Linux is supported. Ensure that [`git`](https://git-scm.com/) and `python` are installed on your system. We recommend Python version `>=3.8`. It is highly recommanded to install [`conda`](https://anaconda.org/anaconda/conda) to create a virtual environment.
+目前，摩耳仅支持Linux系统。请确保您的系统已经安装了[`git`](https://git-scm.com/) and `python`。我们推荐使用 `>=3.8` 的Python版本。另外，我们强烈建议使用[`conda`](https://anaconda.org/anaconda/conda)的虚拟环境来控制您的Python依赖库。
 
-For efficient LLM inference, GPUs should be used. For Moore Threads S3000/S4000 users, please install [MUSA toolkit rc2.1.0](https://developer.mthreads.com/sdk/download/musa?equipment=&os=&driverVersion=&version=). A docker image is also available for S4000 users. If you use other GPUs, install your own drivers/toolkits (e.g. cuda).
+为了能够进行快速的大语言模型推理，您需要使用GPU。对于使用摩尔线程S3000/S4000的用户，请安装[MUSA toolkit rc2.1.0](https://developer.mthreads.com/sdk/download/musa?equipment=&os=&driverVersion=&version=)。我们为S4000用户提供了Docker镜像。如果您使用其它品牌的GPU，请根据厂商提供的指南，自行安装相应的驱动程序及工具箱（例如CUDA等）。
 
-Build the environment with the following steps:
+请安装以下步骤设置您的软件环境：
 
 ```shell
 git clone https://github.com/MooreThreads/MooER
 cd MooER
 
-# (optional) create env using conda
+# (可选) 创建虚拟环境
 conda create -n mooer python=3.8
 conda activate mooer
 
-# install the dependencies
+# 安装影响依赖项
 apt update
 apt install ffmpeg sox
 pip install -r requirements.txt
 ```
 
-Docker image usage for Moore Threads S4000 users is provided:
+我们为摩尔线程S4000用户提供了Docker镜像：
 
 ```shell
 sudo docker run -it \
@@ -286,7 +287,7 @@ sudo docker run -it \
     mtspeech/mooer:v1.0-rc2.1.0-v1.1.0-qy2 \
     /bin/bash
 
-# If you are nvidia user, you can try this image with cuda 11.7
+# 如果您使用nvidia显卡，并且CUDA版本是11.7，您可以尝试使用该镜像：
 sudo docker run -it \
     --privileged \
     --gpus all \
@@ -297,37 +298,37 @@ sudo docker run -it \
     /bin/bash
 ```
 
-### 💾 Download Pretrained Models
+### 💾 下载预训练模型
 
-First, download the pretrained models from [ModelScope](https://modelscope.cn/models/MooreThreadsSpeech/MooER-MTL-5K) or [HuggingFace](https://huggingface.co/mtspeech/MooER-MTL-5K).
+首先，从 [ModelScope](https://modelscope.cn/models/MooreThreadsSpeech/MooER-MTL-5K) 或 [HuggingFace](https://huggingface.co/mtspeech/MooER-MTL-5K) 下载我们提供的预训练模型
 
 ```shell
-# use modelscope
+# 使用ModelScope
 git lfs clone https://modelscope.cn/models/MooreThreadsSpeech/MooER-MTL-5K
 
-# use huggingface
+# 使用HuggingFace
 git lfs clone https://huggingface.co/mtspeech/MooER-MTL-5K
 ```
 
-Put the downloaded files in `pretrained_models`
+将下载后的文件放置在 `pretrained_models` 文件夹中。
 
 ```shell
 cp MooER-MTL-5K/* pretrained_models
 ```
 
-Then, download [`Qwen2-7B-Instruct`](https://modelscope.cn/models/qwen/qwen2-7b-instruct) by:
+然后，下载 [`Qwen2-7B-Instruct`](https://modelscope.cn/models/qwen/qwen2-7b-instruct) ：
 
 ```shell
-# use modelscope
+# 使用ModelScope
 git lfs clone https://modelscope.cn/models/qwen/qwen2-7b-instruct
 
-# use huggingface
+# 使用HuggingFace
 git lfs clone https://huggingface.co/Qwen/Qwen2-7B-Instruct
 ```
 
-Put the downloaded files into `pretrained_models/Qwen2-7B-Instruct`.
+将下载后的文件放在 `pretrained_models/Qwen2-7B-Instruct` 文件夹中。
 
-Finally, all these files should be orgnized as follows. The md5sum's are also provided.
+最后，请确保您下载的文件按照下面的文件结构放置。我们同时提供了每个文件的MD5码，请确保MD5码正确。**模型文件损坏或安放位置不正确会导致运行出错。**
 
 ```text
 ./pretrained_models/
@@ -372,39 +373,39 @@ Finally, all these files should be orgnized as follows. The md5sum's are also pr
 ```
 
 
-## 🏋️ Training
+## 🏋️ 训练
 
-**To be released.**
+**即将开源，敬请期待**
 
-## 🚀 Inference
+## 🚀 推理
 
-You can simply run the inference example to get the idea.
+您可以使用下面的推理示例来尝试摩耳大模型的效果。
 
 ```shell
-# set environment variables
+# 设置环境变量
 export PYTHONIOENCODING=UTF-8
 export LC_ALL=C
 export PYTHONPATH=$PWD/src:$PYTHONPATH
 
-# do inference
+# 执行推理脚本
 python inference.py
 ```
 
-The script runs a multi-task model that will output the speech recognition and translation results simultaneously. If it runs successfully, you will get the ASR and AST results from the terminal.
+以上命令会调用一个多任务摩耳大模型，同时输出语音识别和语音翻译的结果。如果运行成功，您将在终端看到结果。
 
-You can specify your own audio files and change the model settings.
+您还可以通过以下方式，指定您自己的音频文件路径或更改不同的模型配置：
 
 ```shell
-# use your own audio file
+# 使用您自己的音频文件
 python inference.py --wav_path /path/to/your_audio_file
 
-# an scp file is also supported. The format of each line is: "uttid wav_path":
+# 该脚本支持SCP文件。在SCP文件中，每一行的格式为: "uttid wav_path":
 # test1 my_test_audio1.wav
 # test2 my_test_audio2.wav
 # ...
 python inference.py --wav_scp /path/to/your_wav_scp
 
-# change to an ASR model (only transcription)
+# 指定语音识别模型，仅输出识别结果
 python inference.py --task asr \
     --cmvn_path pretrained_models/paraformer_encoder/am.mvn \
     --encoder_path pretrained_models/paraformer_encoder/paraformer-encoder.pth \
@@ -413,7 +414,7 @@ python inference.py --task asr \
     --lora_dir pretrained_models/asr/lora_weights \
     --wav_path /path/to/your_audio_file
 
-# change to an AST model (only translation)
+# 指定语音翻译模型，仅输出中翻英结果
 python inference.py --task ast \
     --cmvn_path pretrained_models/paraformer_encoder/am.mvn \
     --encoder_path pretrained_models/paraformer_encoder/paraformer-encoder.pth \
@@ -422,79 +423,83 @@ python inference.py --task ast \
     --lora_dir pretrained_models/ast/lora_weights \
     --wav_path /path/to/your_audio_file
 
-# Note: set `--task ast` if you want to use the asr/ast multitask model
-# show all the parameters
+# 注意：当您使用多任务模型时，您需要指`--task ast`
+# 输出所有可用选项
 python inference.py -h
 ```
 
-We recommend to use an audio file shorter than 30s. The text in the audio should be less than 500 characters. It is also suggested that you convert the audio to a 16kHz 16bit mono WAV format before processing it (using `ffmpeg` or `sox`).
+我们建议一次性识别的音频长度不要超过30秒，同时音频中包含的文字数量应少于500个字。另外，我们还建议在识别前先通过`ffmpeg`或`sox`将音频转换为16kHz 16bit单声道WAV格式。
 
-## 🎨 Gradio Demo
+## 🎨 Gradio 演示
 
-We provide a Gradio interface for a better experience. To use it, run the following commands:
+为了提供更好的使用体验，我们附带了一个基于Gradio的演示程序。您可以通过运行以下命令来使用：
 
 ```shell
-# set the environment variables
+# 设置环境变量
 export PYTHONPATH=$PWD/src:$PYTHONPATH
 
-# Run the ASR/AST multitask model
+# 运行多模态模型
 python demo/app.py
 
-# Run the ASR-only model
+# 仅运行语音识别模型
 python demo/app.py \
   --task asr \
   --adapter_path pretrained_models/asr/adapter_project.pt \
   --lora_dir pretrained_models/asr/lora_weights
 
-# Run the AST-only model
+# 仅运行语音翻译模型
 python demo/app.py \
   --task ast \
   --adapter_path pretrained_models/ast/adapter_project.pt \
   --lora_dir pretrained_models/ast/lora_weights
 ```
 
-You can specify `--server_port`, `--share`, `--server_name` as needed.
+您还可以根据需要指定`--server_port`, `--share`, `--server_name`等启动参数。
 
-Due to the lack of an HTTPS certificate, your access is limited to HTTP, for which modern browsers block the microphone access. As a workaround, you can manually grant access. For instance, in Chrome, navigate to `chrome://flags/#unsafely-treat-insecure-origin-as-secure` and add the target address to the whitelist. For other browsers, please google for a similar workaround.
+由于缺少HTTPS证书，您仅能使用HTTP访问演示网页。此时，现代浏览器会阻止您对麦克风的访问。为了绕过该问题，您需要手动进行设置。如果您使用的是Chrome浏览器，请在导航栏输入 `chrome://flags/#unsafely-treat-insecure-origin-as-secure`，在打开的页面中，将您想要访问的目标地址添加到白名单中。其它浏览器的设置方法请您自行查询相关解决方案。
 
-In the demo, using the streaming mode will yield faster results. However, please note that the beam size is restricted to be 1 in the streaming mode, which may slightly degrade the performance.
+使用该演示程序时，使用流式模型可以更快地获取识别、翻译结果。但请注意，流式模型会限制解码的beam大小为1，这可能会略微影响识别、翻译效果。
 
-> 🤔 No experience about how to run Gradio?
+> 🤔 不知道如何运行Gradio？
 >
-> 💻 Don't have a machine to run the demo?
+> 💻 没有可用的机器？
 >
-> ⌛ Don't have time to install the dependencies?
+> ⌛ 不想花时间安装相关环境？
 >
-> **☕ Just take a coffee and click [here to try our online demo](https://mooer-speech.mthreads.com:10077/). It is running on a Moore Threads S4000 GPU server!**
+> **☕ 点击这里可以体验 [我们提供的在线演示](https://mooer-speech.mthreads.com:10077/)，该演示运行在摩尔线程S4000服务器上！**
 
 
-## 📝 Roadmap
 
-- [x] Technical report
-- [x] Inference code and pretrained ASR/AST models using 5k hours of data
-- [ ] Traning code for MooER
-- [ ] Pretrained models using 80k hours of data
-- [ ] LLM-based timbre-preserving Speech-to-speech translation (S2ST)
+## 📝 开源计划
 
-
-## License
-
-Please see the [LICENSE](LICENSE.md).
+- [x] 发布技术报告
+- [x] 开源推理代码及5000小时数据预训练模型
+- [ ] 开源训练代码
+- [ ] 80,000小时预训练模型
+- [ ] 基于大语言模型的音色保持语音翻译模型
 
 
-## 🙏🏻 Acknowledgements
+## 开源许可
 
-We borrowed the speech encoder from [FunASR](https://github.com/modelscope/FunASR).
+摩耳的开源许可请参考[该文件](LICENSE.md).
 
-The LLM code was borrowed from [Qwen2](https://github.com/QwenLM/Qwen2).
 
-Our training and inference codes are adapted from [SLAM-LLM](https://github.com/X-LANCE/SLAM-LLM).
+## 🙏🏻 致谢
 
-We also got inspiration from other open-source repositories like [whisper](https://github.com/openai/whisper) and [SeamlessM4T](https://github.com/facebookresearch/seamless_communication). We would like to thank all the authors and contributors for their innovative ideas and codes.
 
-## 💖 Citation
+我们从 [FunASR](https://github.com/modelscope/FunASR) 中借鉴了语音编码器。
 
-If you find MooER useful for your research, please 🌟 this repo and cite our work using the following BibTeX:
+我们使用的大语言模型相关代码借鉴自 [Qwen2](https://github.com/QwenLM/Qwen2)。
+
+我们的训练及推理代码是根据 [SLAM-LLM](https://github.com/X-LANCE/SLAM-LLM) 调整而来。
+
+我们也从许多其它的开源仓库中获得了灵感，比如 [whisper](https://github.com/openai/whisper) 和 [SeamlessM4T](https://github.com/facebookresearch/seamless_communication)。
+
+在此，我们想要感谢所有的论文作者和开源代码贡献者，感谢他们创新的想法和代码为我们提供的帮助。
+
+## 💖 引用
+
+如果您喜欢摩耳，或觉得摩耳对您有用，请为我们的仓库点🌟并引用我们的工作：
 
 ```bibtex
 @article{liang2024mooer,
@@ -505,11 +510,11 @@ If you find MooER useful for your research, please 🌟 this repo and cite our w
 }
 ```
 
-## 📧 Contact
+## 📧 联系方式
 
-If you encouter any problems, feel free to create an issue.
+如果您遇到了任何问题，请随时创建issue。
 
-Moore Threads Website: **https://www.mthreads.com/**
+摩尔线程官方网站：**https://www.mthreads.com/**
 
 <br>
 <p align="left">
