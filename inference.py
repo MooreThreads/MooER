@@ -131,29 +131,7 @@ logging.info(f"Input data type: {dtype}")
 context_scope = torch.musa.amp.autocast if 'musa' in device else torch.cuda.amp.autocast
 
 with torch.no_grad():
-    if args.wav_path != '' and os.path.exists(args.wav_path):
-        try:
-            wav_path = args.wav_path
-            items = process_wav(wav_path)
-            batch = process_batch([items], tokenizer=tokenizer)
-            for key in batch.keys():
-                batch[key] = batch[key].to(device) if isinstance(batch[key], torch.Tensor) else batch[key]
-            with context_scope(dtype=dtype):
-                ss = time.perf_counter()
-                model_outputs = model.generate(**batch)
-                logging.info(f"Infer time: {time.perf_counter() - ss}")
-            output_text = model.tokenizer.batch_decode(model_outputs, add_special_tokens=False,
-                                                       skip_special_tokens=True)
-            for text in output_text:
-                text = text.split('\n')
-                if len(text) == 2:
-                    logging.info(f"ASR: {text[0].strip()}")
-                    logging.info(f"AST: {text[1].strip()}")
-                else:
-                    logging.info(f"ASR: {text[0].strip()}")
-        except Exception as e:
-            logging.error(e)
-    elif args.wav_scp != '' and os.path.exists(args.wav_scp):
+    if args.wav_scp is not None and os.path.exists(args.wav_scp):
         batch_size = args.batch_size
         infer_time = []
         items = parse_key_text(args.wav_scp)
@@ -185,3 +163,27 @@ with torch.no_grad():
                     logging.info(f"ASR: {text[0].strip()}")
         logging.info("Total inference cost")
         logging.info(sum(infer_time))
+    elif args.wav_path != '' and os.path.exists(args.wav_path):
+        try:
+            wav_path = args.wav_path
+            items = process_wav(wav_path)
+            batch = process_batch([items], tokenizer=tokenizer)
+            for key in batch.keys():
+                batch[key] = batch[key].to(device) if isinstance(batch[key], torch.Tensor) else batch[key]
+            with context_scope(dtype=dtype):
+                ss = time.perf_counter()
+                model_outputs = model.generate(**batch)
+                logging.info(f"Infer time: {time.perf_counter() - ss}")
+            output_text = model.tokenizer.batch_decode(model_outputs, add_special_tokens=False,
+                                                       skip_special_tokens=True)
+            for text in output_text:
+                text = text.split('\n')
+                if len(text) == 2:
+                    logging.info(f"ASR: {text[0].strip()}")
+                    logging.info(f"AST: {text[1].strip()}")
+                else:
+                    logging.info(f"ASR: {text[0].strip()}")
+        except Exception as e:
+            logging.error(e)
+    else:
+        raise IOError("You should specify --wav_scp or --wav_path as the input")
