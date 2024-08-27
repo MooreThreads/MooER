@@ -38,7 +38,7 @@
 
 ## 🔥 Updates
 
-- **`2024/08/27`**: We released [MooER-80K-v2](https://modelscope.cn/models/MooreThreadsSpeech/MooER-MTL-80K) which was trained using 80K hours of data. The performance of the new model can be found below. Currently, it only supports the speech recognition task. The speech translation and the multi-task model will be released soon.
+- **`2024/08/27`**: We released [MooER-80K-v2](https://modelscope.cn/models/MooreThreadsSpeech/MooER-MTL-80K) which was trained using 80K hours of data. The performance of the new model can be found below. Currently, it only supports the speech recognition task. The speech translation and the multi-task models will be released soon.
 - **`2024/08/09`**: We released [a Gradio demo](https://mooer-speech.mthreads.com:10077/) running on Moore Threads S4000.
 - **`2024/08/09`**: We released the inference code and the pretrained speech recognition and speech translation (zh->en) models using 5000 hours of data.
 - **`2024/08/09`**: We release MooER v0.1 technical report on [arXiv](https://arxiv.org/abs/2408.05101).
@@ -392,7 +392,7 @@ Finally, all these files should be orgnized as follows. The md5sum's are also pr
 
 #### Update [2024/08/27]
 
-Download *MooER-80K-v2* and update `pretrained_models`.
+The new *MooER-80K-v2* is released. You can download the new model and update `pretrained_models`.
 
 ```shell
 # use modelscope
@@ -515,7 +515,7 @@ In the demo, using the streaming mode will yield faster results. However, please
 
 - [x] Technical report
 - [x] Inference code and pretrained ASR/AST models using 5k hours of data
-- [x] Pretrained ASR models using 80k hours of data
+- [x] Pretrained ASR model using 80k hours of data
 - [ ] Traning code for MooER
 - [ ] Pretrained AST and multi-task models using 80k hours of data
 - [ ] LLM-based timbre-preserving Speech-to-speech translation (S2ST)
