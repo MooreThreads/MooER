@@ -28,13 +28,17 @@
   <a href='https://github.com/MooreThreads/MooER'><img src='https://img.shields.io/badge/Code-GitHub-yellow'></a>
   <a href='https://arxiv.org/abs/2408.05101'><img src='https://img.shields.io/badge/Paper-arXiv-red'></a>
   <a href='https://mooer-speech.mthreads.com:10077/'><img src='https://img.shields.io/badge/Demo-Running on S4000-purple'></a>
-  <a href='https://huggingface.co/mtspeech/MooER-MTL-5K'><img src='https://img.shields.io/badge/Model-HuggingFace-pink'></a>
-  <a href='https://modelscope.cn/models/MooreThreadsSpeech/MooER-MTL-5K'><img src='https://img.shields.io/badge/Model-ModelScope-blue'></a>
+  <br>
+  <a href='https://huggingface.co/mtspeech/MooER-MTL-5K'><img src='https://img.shields.io/badge/Model-HuggingFace_5K-pink'></a>
+  <a href='https://huggingface.co/mtspeech/MooER-MTL-80K'><img src='https://img.shields.io/badge/Model-HuggingFace_80K-pink'></a>
+  <a href='https://modelscope.cn/models/MooreThreadsSpeech/MooER-MTL-5K'><img src='https://img.shields.io/badge/Model-ModelScope_5K-blue'></a>
+  <a href='https://modelscope.cn/models/MooreThreadsSpeech/MooER-MTL-80K'><img src='https://img.shields.io/badge/Model-ModelScope_80K-blue'></a>
 </div>
 <br>
 
 ## 🔥 Updates
 
+- **`2024/08/27`**: We released [MooER-80K-v2](https://modelscope.cn/models/MooreThreadsSpeech/MooER-MTL-80K) which was trained using 80K hours of data. The performance of the new model can be found below. Currently, it only supports the speech recognition task. The speech translation and the multi-task models will be released soon.
 - **`2024/08/09`**: We released [a Gradio demo](https://mooer-speech.mthreads.com:10077/) running on Moore Threads S4000.
 - **`2024/08/09`**: We released the inference code and the pretrained speech recognition and speech translation (zh->en) models using 5000 hours of data.
 - **`2024/08/09`**: We release MooER v0.1 technical report on [arXiv](https://arxiv.org/abs/2408.05101).
@@ -93,6 +97,7 @@ The performance of speech recognition is evaluated using word error rate (WER) a
     <th>SeamlessM4T-v2</th>
     <th>MooER-5K</th>
     <th>MooER-80K</th>
+    <th>MooER-80K-v2</th>
   </tr>
   <tr>
     <td rowspan="7">Chinese</td>
@@ -104,6 +109,7 @@ The performance of speech recognition is evaluated using word error rate (WER) a
     <td>4.09</td>
     <td>1.93</td>
     <td>1.25</td>
+    <td>1.00</td>
   </tr>
   <tr>
     <td>aishell2_ios</td>
@@ -114,6 +120,7 @@ The performance of speech recognition is evaluated using word error rate (WER) a
     <td>4.81</td>
     <td>3.17</td>
     <td>2.67</td>
+    <td>2.62</td>
   </tr>
   <tr>
     <td>test_magicdata</td>
@@ -124,6 +131,7 @@ The performance of speech recognition is evaluated using word error rate (WER) a
     <td>9.69</td>
     <td>3.48</td>
     <td>2.52</td>
+    <td>2.17</td>
   </tr>
   <tr>
     <td>test_thchs</td>
@@ -134,6 +142,7 @@ The performance of speech recognition is evaluated using word error rate (WER) a
     <td>7.14</td>
     <td>4.11</td>
     <td>3.14</td>
+    <td>3.00</td>
   </tr>
   <tr>
     <td>fleurs cmn_dev</td>
@@ -144,6 +153,7 @@ The performance of speech recognition is evaluated using word error rate (WER) a
     <td>7.12</td>
     <td>5.81</td>
     <td>5.23</td>
+    <td>5.15</td>
   </tr>
   <tr>
     <td>fleurs cmn_test</td>
@@ -154,6 +164,7 @@ The performance of speech recognition is evaluated using word error rate (WER) a
     <td>7.66</td>
     <td>6.77</td>
     <td>6.18</td>
+    <td>6.14</td>
   </tr>
   <tr>
     <td>average</td>
@@ -164,6 +175,7 @@ The performance of speech recognition is evaluated using word error rate (WER) a
     <td><strong>6.75</strong></td>
     <td><strong>4.21</strong></td>
     <td><strong>3.50</strong></td>
+    <td><strong>3.35</strong></td>
   </tr>
   <tr>
     <td rowspan="7">English</td>
@@ -175,6 +187,7 @@ The performance of speech recognition is evaluated using word error rate (WER) a
     <td>2.77</td>
     <td>7.78</td>
     <td>4.11</td>
+    <td>3.57</td>
   </tr>
   <tr>
     <td>librispeech test_other</td>
@@ -185,6 +198,7 @@ The performance of speech recognition is evaluated using word error rate (WER) a
     <td>5.25</td>
     <td>15.25</td>
     <td>9.99</td>
+    <td>9.09</td>
   </tr>
   <tr>
     <td>fleurs eng_dev</td>
@@ -195,6 +209,7 @@ The performance of speech recognition is evaluated using word error rate (WER) a
     <td>11.36</td>
     <td>18.89</td>
     <td>13.32</td>
+    <td>13.12</td>
   </tr>
   <tr>
     <td>fleurs eng_test</td>
@@ -205,6 +220,7 @@ The performance of speech recognition is evaluated using word error rate (WER) a
     <td>11.82</td>
     <td>20.41</td>
     <td>14.97</td>
+    <td>14.74</td>
   </tr>
   <tr>
     <td>gigaspeech dev</td>
@@ -215,6 +231,7 @@ The performance of speech recognition is evaluated using word error rate (WER) a
     <td>28.01</td>
     <td>23.46</td>
     <td>16.92</td>
+    <td>17.34</td>
   </tr>
   <tr>
     <td>gigaspeech test</td>
@@ -225,6 +242,7 @@ The performance of speech recognition is evaluated using word error rate (WER) a
     <td>28.65</td>
     <td>22.09</td>
     <td>16.64</td>
+    <td>16.97</td>
   </tr>
   <tr>
     <td>average</td>
@@ -235,6 +253,7 @@ The performance of speech recognition is evaluated using word error rate (WER) a
     <td><strong>14.64</strong></td>
     <td><strong>17.98</strong></td>
     <td><strong>12.66</strong></td>
+    <td><strong>12.47</strong></td>
   </tr>
 </table>
 
@@ -371,6 +390,30 @@ Finally, all these files should be orgnized as follows. The md5sum's are also pr
 `-- configuration.json
 ```
 
+#### Update [2024/08/27]
+
+The new *MooER-80K-v2* is released. You can download the new model and update `pretrained_models`.
+
+```shell
+# use modelscope
+git lfs clone https://modelscope.cn/models/MooreThreadsSpeech/MooER-MTL-80K
+
+# use huggingface
+git lfs clone https://huggingface.co/mtspeech/MooER-MTL-80K
+```
+
+The md5sum's of the updated files are provided.
+
+```text
+./pretrained_models/
+`-- asr
+    |-- adapter_project.pt               # af9022e2853f9785cab49017a18de82c
+    `-- lora_weights
+        |-- README.md
+        |-- adapter_config.json          # ad3e3bfe9447b808b9cc16233ffacaaf
+        `-- adapter_model.bin            # 3c22b9895859b01efe49b017e8ed6ec7
+```
+
 
 ## 🏋️ Training
 
@@ -472,8 +515,9 @@ In the demo, using the streaming mode will yield faster results. However, please
 
 - [x] Technical report
 - [x] Inference code and pretrained ASR/AST models using 5k hours of data
+- [x] Pretrained ASR model using 80k hours of data
 - [ ] Traning code for MooER
-- [ ] Pretrained models using 80k hours of data
+- [ ] Pretrained AST and multi-task models using 80k hours of data
 - [ ] LLM-based timbre-preserving Speech-to-speech translation (S2ST)
 
 
