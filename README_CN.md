@@ -28,13 +28,17 @@
   <a href='https://github.com/MooreThreads/MooER'><img src='https://img.shields.io/badge/Code-GitHub-yellow'></a>
   <a href='https://arxiv.org/abs/2408.05101'><img src='https://img.shields.io/badge/Paper-arXiv-red'></a>
   <a href='https://mooer-speech.mthreads.com:10077/'><img src='https://img.shields.io/badge/Demo-Running on S4000-purple'></a>
-  <a href='https://huggingface.co/mtspeech/MooER-MTL-5K'><img src='https://img.shields.io/badge/Model-HuggingFace-pink'></a>
-  <a href='https://modelscope.cn/models/MooreThreadsSpeech/MooER-MTL-5K'><img src='https://img.shields.io/badge/Model-ModelScope-blue'></a>
+  <br>
+  <a href='https://huggingface.co/mtspeech/MooER-MTL-5K'><img src='https://img.shields.io/badge/Model-HuggingFace_5K-pink'></a>
+  <a href='https://huggingface.co/mtspeech/MooER-MTL-80K'><img src='https://img.shields.io/badge/Model-HuggingFace_80K-pink'></a>
+  <a href='https://modelscope.cn/models/MooreThreadsSpeech/MooER-MTL-5K'><img src='https://img.shields.io/badge/Model-ModelScope_5K-blue'></a>
+  <a href='https://modelscope.cn/models/MooreThreadsSpeech/MooER-MTL-80K'><img src='https://img.shields.io/badge/Model-ModelScope_80K-blue'></a>
 </div>
 <br>
 
 ## 🔥 更新
 
+- **`2024/08/27`**: 我们推出了使用8万小时数据训练的[MooER-80K-v2](https://modelscope.cn/models/MooreThreadsSpeech/MooER-MTL-80K)，您可从下文的评测结果中找到其对应的识别效果。目前，该模型仅支持语音识别任务，支持语音翻译及多任务识别的模型随后将会推出。
 - **`2024/08/09`**: 我们推出了[基于Gradio的在线演示](https://mooer-speech.mthreads.com:10077/)。该演示系统运行在摩尔线程S4000服务器上。
 - **`2024/08/09`**: 我们开源了推理代码，并同时开放了多个基于5000小时数据训练的语音识别及语音翻译（中->英）模型。欢迎试用！
 - **`2024/08/09`**: 我们在arXiv上发布了 MooER v0.1 的[技术报告](https://arxiv.org/abs/2408.05101).
@@ -94,6 +98,7 @@
     <th>SeamlessM4T-v2</th>
     <th>MooER-5K</th>
     <th>MooER-80K</th>
+    <th>MooER-80K-v2</th>
   </tr>
   <tr>
     <td rowspan="7">Chinese</td>
@@ -105,6 +110,7 @@
     <td>4.09</td>
     <td>1.93</td>
     <td>1.25</td>
+    <td>1.00</td>
   </tr>
   <tr>
     <td>aishell2_ios</td>
@@ -115,6 +121,7 @@
     <td>4.81</td>
     <td>3.17</td>
     <td>2.67</td>
+    <td>2.62</td>
   </tr>
   <tr>
     <td>test_magicdata</td>
@@ -125,6 +132,7 @@
     <td>9.69</td>
     <td>3.48</td>
     <td>2.52</td>
+    <td>2.17</td>
   </tr>
   <tr>
     <td>test_thchs</td>
@@ -135,6 +143,7 @@
     <td>7.14</td>
     <td>4.11</td>
     <td>3.14</td>
+    <td>3.00</td>
   </tr>
   <tr>
     <td>fleurs cmn_dev</td>
@@ -145,6 +154,7 @@
     <td>7.12</td>
     <td>5.81</td>
     <td>5.23</td>
+    <td>5.15</td>
   </tr>
   <tr>
     <td>fleurs cmn_test</td>
@@ -155,6 +165,7 @@
     <td>7.66</td>
     <td>6.77</td>
     <td>6.18</td>
+    <td>6.14</td>
   </tr>
   <tr>
     <td>average</td>
@@ -165,6 +176,7 @@
     <td><strong>6.75</strong></td>
     <td><strong>4.21</strong></td>
     <td><strong>3.50</strong></td>
+    <td><strong>3.35</strong></td>
   </tr>
   <tr>
     <td rowspan="7">English</td>
@@ -176,6 +188,7 @@
     <td>2.77</td>
     <td>7.78</td>
     <td>4.11</td>
+    <td>3.57</td>
   </tr>
   <tr>
     <td>librispeech test_other</td>
@@ -186,6 +199,7 @@
     <td>5.25</td>
     <td>15.25</td>
     <td>9.99</td>
+    <td>9.09</td>
   </tr>
   <tr>
     <td>fleurs eng_dev</td>
@@ -196,6 +210,7 @@
     <td>11.36</td>
     <td>18.89</td>
     <td>13.32</td>
+    <td>13.12</td>
   </tr>
   <tr>
     <td>fleurs eng_test</td>
@@ -206,6 +221,7 @@
     <td>11.82</td>
     <td>20.41</td>
     <td>14.97</td>
+    <td>14.74</td>
   </tr>
   <tr>
     <td>gigaspeech dev</td>
@@ -216,6 +232,7 @@
     <td>28.01</td>
     <td>23.46</td>
     <td>16.92</td>
+    <td>17.34</td>
   </tr>
   <tr>
     <td>gigaspeech test</td>
@@ -226,6 +243,7 @@
     <td>28.65</td>
     <td>22.09</td>
     <td>16.64</td>
+    <td>16.97</td>
   </tr>
   <tr>
     <td>average</td>
@@ -236,6 +254,7 @@
     <td><strong>14.64</strong></td>
     <td><strong>17.98</strong></td>
     <td><strong>12.66</strong></td>
+    <td><strong>12.47</strong></td>
   </tr>
 </table>
 
@@ -372,6 +391,29 @@ git lfs clone https://huggingface.co/Qwen/Qwen2-7B-Instruct
 `-- configuration.json
 ```
 
+#### 2024/08/27更新
+
+我们推出了新的模型*MooER-80K-v2*。您可以下载新的模型文件，并更换`pretrained_models`下的相关文件。
+
+```shell
+# use modelscope
+git lfs clone https://modelscope.cn/models/MooreThreadsSpeech/MooER-MTL-80K
+
+# use huggingface
+git lfs clone https://huggingface.co/mtspeech/MooER-MTL-80K
+```
+
+新模型文件对应的MD5码为：
+
+```text
+./pretrained_models/
+`-- asr
+    |-- adapter_project.pt               # af9022e2853f9785cab49017a18de82c
+    `-- lora_weights
+        |-- README.md
+        |-- adapter_config.json          # ad3e3bfe9447b808b9cc16233ffacaaf
+        `-- adapter_model.bin            # 3c22b9895859b01efe49b017e8ed6ec7
+```
 
 ## 🏋️ 训练
 
@@ -474,8 +516,9 @@ python demo/app.py \
 
 - [x] 发布技术报告
 - [x] 开源推理代码及5000小时数据预训练模型
+- [x] 80,000小时数据预训练的语音识别模型
 - [ ] 开源训练代码
-- [ ] 80,000小时预训练模型
+- [ ] 80,000小时数据预训练的语音翻译及多任务模型
 - [ ] 基于大语言模型的音色保持语音翻译模型
 
 
