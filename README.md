@@ -3,7 +3,7 @@
 </p>
 <br><br>
 
-<h1 align="center">MooER (摩耳): an LLM-based Speech Recognition and Translation Model from Moore Threads </h1>
+<h1 align="center">MooER (摩耳): Open-sourced LLM for audio understanding trained on 80,000 hours of data </h1>
 
 <div align='center'>
     <a href='https://scholar.google.com/citations?user=eYP4TmgAAAAJ&hl=zh-CN&oi=ao' target='_blank'><u>Zhenlin Liang</u></a><sup>†</sup>&emsp;
