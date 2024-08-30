@@ -3,7 +3,7 @@
 </p>
 <br><br>
 
-<h1 align="center">MooER (摩耳): 基于大语言模型的语音识别与语音翻译系统 </h1>
+<h1 align="center">MooER (摩耳): 基于8万小时训练数据的开源音频理解大模型  </h1>
 
 <div align='center'>
     <a href='https://scholar.google.com/citations?user=eYP4TmgAAAAJ&hl=zh-CN&oi=ao' target='_blank'><u>梁镇麟</u></a><sup>†</sup>&emsp;
