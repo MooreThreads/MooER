@@ -1,5 +1,5 @@
-from dataclasses import dataclass, field
-from typing import Optional, List
+from dataclasses import dataclass
+from typing import Optional
 
 
 @dataclass
@@ -26,6 +26,9 @@ class ModelConfig:
         self.gradient_checkpoint: bool = False
         self.is_inference: bool = True
         self.prompt_template_key: str = 'qwen'
+
+    def __getitem__(self, key):
+        return getattr(self, key)
 
     def get(self, attribute_name, default_value=None):
         return getattr(self, attribute_name, default_value)

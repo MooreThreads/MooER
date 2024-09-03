@@ -1,0 +1,57 @@
+{
+    "train_micro_batch_size_per_gpu": 16,
+    "gradient_accumulation_steps": 2,
+    "steps_per_print": 100,
+    "optimizer": {
+        "type": "Adam",
+        "params": {
+            "lr": 1e-4
+        }
+    },
+    "scheduler": {
+        "type": "WarmupDecayLR",
+        "params": {
+            "total_num_steps": 10000000,
+            "warmup_max_lr": 0.0001,
+            "warmup_num_steps": 1000
+        }
+    },
+    "fp16": {
+        "enabled": false,
+        "loss_scale": 0,
+        "loss_scale_window": 1000,
+        "initial_scale_power": 16,
+        "hysteresis": 2,
+        "min_loss_scale": 1
+    },
+    "bf16": {
+        "enabled": true
+    },
+    "zero_optimization": {
+        "stage": 3,
+        "offload_optimizer": {
+            "device": "cpu",
+            "pin_memory": true
+        },
+        "offload_param": {
+            "device": "cpu",
+            "pin_memory": true
+        },
+        "overlap_comm": true,
+        "contiguous_gradients": true,
+        "sub_group_size": 1e9,
+        "reduce_bucket_size": "auto",
+        "stage3_prefetch_bucket_size": "auto",
+        "stage3_param_persistence_threshold": "auto",
+        "stage3_max_live_parameters": 1e9,
+        "stage3_max_reuse_distance": 1e9,
+        "stage3_gather_16bit_weights_on_model_save": true
+    },
+    "activation_checkpointing": {
+        "partition_activations": true,
+        "cpu_checkpointing": true,
+        "contiguous_memory_optimization": true,
+        "synchronize_checkpoint_boundary": false,
+        "profile": false
+    }
+}

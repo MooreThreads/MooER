@@ -38,6 +38,7 @@
 
 ## 🔥 Updates
 
+- **`2024/09/03`**: We have open-sourced the ***training and inference code*** for MooER! You can follow this [tutorial](tutorial/train.md) to train your own audio understanding model and tasks or fine-tune based on our 80k hours model.
 - **`2024/08/27`**: We released [MooER-80K-v2](https://modelscope.cn/models/MooreThreadsSpeech/MooER-MTL-80K) which was trained using 80K hours of data. The performance of the new model can be found below. Currently, it only supports the speech recognition task. The speech translation and the multi-task models will be released soon.
 - **`2024/08/09`**: We released [a Gradio demo](https://mooer-speech.mthreads.com:10077/) running on Moore Threads S4000.
 - **`2024/08/09`**: We released the inference code and the pretrained speech recognition and speech translation (zh->en) models using 5000 hours of data.
@@ -417,7 +418,7 @@ The md5sum's of the updated files are provided.
 
 ## 🏋️ Training
 
-**To be released.**
+**We have open-sourced the training and inference code for MooER! You can follow this [tutorial](tutorial/train.md) to train your own audio understanding model or fine-tune based on 80k hours model.**
 
 ## 🚀 Inference
 
@@ -516,7 +517,7 @@ In the demo, using the streaming mode will yield faster results. However, please
 - [x] Technical report
 - [x] Inference code and pretrained ASR/AST models using 5k hours of data
 - [x] Pretrained ASR model using 80k hours of data
-- [ ] Traning code for MooER
+- [x] Traning code for MooER
 - [ ] Pretrained AST and multi-task models using 80k hours of data
 - [ ] LLM-based timbre-preserving Speech-to-speech translation (S2ST)
 
@@ -532,7 +533,7 @@ We borrowed the speech encoder from [FunASR](https://github.com/modelscope/FunAS
 
 The LLM code was borrowed from [Qwen2](https://github.com/QwenLM/Qwen2).
 
-Our training and inference codes are adapted from [SLAM-LLM](https://github.com/X-LANCE/SLAM-LLM).
+Our training and inference codes are adapted from [SLAM-LLM](https://github.com/X-LANCE/SLAM-LLM) and [Wenet](https://github.com/wenet-e2e/wenet).
 
 We also got inspiration from other open-source repositories like [whisper](https://github.com/openai/whisper) and [SeamlessM4T](https://github.com/facebookresearch/seamless_communication). We would like to thank all the authors and contributors for their innovative ideas and codes.
 

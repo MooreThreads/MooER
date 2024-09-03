@@ -1,10 +1,14 @@
 import os
+import types
 import torch
 import torch.nn as nn
+import torch.nn as nn
+import torch.nn.functional as F
 from typing import List, Optional
 from transformers import AutoModelForCausalLM, AutoTokenizer, T5ForConditionalGeneration
-from peft import PeftModel
-from mooer.utils.utils import print_module_size
+from peft import PeftModel, get_peft_model
+from mooer.utils.utils import print_module_size, compute_accuracy
+from mooer.utils.config_utils import generate_peft_config
 from mooer.models.encoder import WhisperWrappedEncoder, HubertEncoder, W2vBert2Encoder, ParaformerEncoder
 from mooer.models.adapter import LinearAdapter
 
@@ -13,18 +17,19 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def init_model(model_config):
+def init_model(model_config, train_config=None, peft_config=None):
     tokenizer = setup_tokenizer(model_config)
-    encoder = setup_encoder(model_config)
-    adapter = setup_adapter(model_config)
-    llm = setup_llm(model_config)
+    encoder = setup_encoder(model_config, train_config)
+    adapter = setup_adapter(model_config, train_config)
+    llm = setup_llm(model_config, train_config, peft_config)
     
     model = MooerModel(
         encoder,
         llm,
         adapter,
         tokenizer,
-        model_config
+        model_config,
+        train_config
     )
     
     # load adapter
@@ -69,7 +74,7 @@ def setup_tokenizer(model_config):
     return tokenizer
 
 
-def setup_encoder(model_config):
+def setup_encoder(model_config, train_config=None):
     encoder_name = model_config.encoder_name
     if encoder_name == "whisper":
         encoder = WhisperWrappedEncoder.load(model_config)
@@ -82,14 +87,15 @@ def setup_encoder(model_config):
     else:
         raise KeyError(f"not support encoder: {encoder_name}")
     print_module_size(encoder, encoder_name, 0, "====Total Params====")
-    for name, param in encoder.named_parameters():
-        param.requires_grad = False
-    encoder.eval()
+    if train_config is None or train_config.freeze_encoder:
+        for name, param in encoder.named_parameters():
+            param.requires_grad = False
+        encoder.eval()
     print_module_size(encoder, encoder_name, 0, "====Trainable Params====")
     return encoder
 
 
-def setup_llm(model_config):
+def setup_llm(model_config, train_config=None, peft_config=None):
     if model_config.load_dtype == "float16":
         load_dtype = torch.float16
     elif model_config.load_dtype == "bfloat16":
@@ -103,16 +109,17 @@ def setup_llm(model_config):
             torch_dtype=load_dtype,
         )
     else:
+        # load your own LLM
         model = AutoModelForCausalLM.from_pretrained(
             model_config.llm_path,
             use_cache=None,
             torch_dtype=load_dtype,
         )
     print_module_size(model, model_config.llm_name, 0, "====Total Params====")
-    for name, param in model.named_parameters():
-        param.requires_grad = False
-    model.eval()
-    print_module_size(model, model_config.llm_name, 0, "====Trainable Params====")
+    if train_config is None or train_config.freeze_llm:
+        for name, param in model.named_parameters():
+            param.requires_grad = False
+        model.eval()
     if model_config.get("lora_dir", None) and os.path.exists(model_config.get("lora_dir", "")):
         if model_config.is_inference:
             logger.info("Inference load lora...")
@@ -123,24 +130,33 @@ def setup_llm(model_config):
             model.eval()
             logger.info("Finish Merging LLM and Adaptor...")
         else:
+            # continuous training
             logger.info("Training load lora...")
             logger.info("loading lora_dir from: {}".format(model_config.get("lora_dir")))
             model = PeftModel.from_pretrained(model=model, model_id=model_config.get("lora_dir"), is_trainable=True)
             logger.info("Start Merging LLM and Adaptor...")
             model = model.merge_and_unload()
             logger.info("Finish Merging LLM and Adaptor...")
+    elif train_config.use_peft:
+        assert peft_config is not None
+        logger.info("setup peft...")
+        peft_config = generate_peft_config(peft_config)
+        model = get_peft_model(model, peft_config)
+        model.print_trainable_parameters()
+    print_module_size(model, model_config.llm_name, 0, "====Trainable Params====")
     return model
 
 
-def setup_adapter(model_config):
+def setup_adapter(model_config, train_config=None):
     if model_config.adapter == "linear":
         adapter = LinearAdapter(model_config)
     else:
         raise KeyError(f"not support {model_config.adapter}")
     print_module_size(adapter, model_config.adapter, 0, "====Total Params====")
-    for name, param in adapter.named_parameters():
-        param.requires_grad = False
-    adapter.eval()
+    if train_config is None or train_config.freeze_projector:
+        for name, param in adapter.named_parameters():
+            param.requires_grad = False
+        adapter.eval()
     print_module_size(adapter, model_config.adapter, 0, "====Trainable Params====")
     return adapter
 
@@ -153,6 +169,7 @@ class MooerModel(nn.Module):
         adapter: nn.Module,
         tokenizer,
         model_config,
+        train_config=None
     ):
         super().__init__()
         self.encoder = encoder
@@ -160,11 +177,27 @@ class MooerModel(nn.Module):
         self.encoder_projector = adapter
         self.tokenizer = tokenizer
         self.model_config = model_config
+        self.train_config = train_config
+        if self.train_config is not None and train_config.get("enable_deepspeed", False):
+            def new_forward(self, input):
+                output = F.layer_norm(
+                    input.float(),
+                    self.normalized_shape,
+                    self.weight.float() if self.weight is not None else None,
+                    self.bias.float() if self.bias is not None else None,
+                    self.eps,
+                )
+                return output.type_as(input)
+    
+            for item in self.modules():
+                if isinstance(item, nn.LayerNorm):
+                    item.forward = types.MethodType(new_forward, item)
     
     def forward(self,
                 input_ids: torch.LongTensor = None,
                 attention_mask: Optional[torch.Tensor] = None,
                 inputs_embeds: Optional[torch.FloatTensor] = None,
+                labels: Optional[torch.LongTensor] = None,
                 **kwargs,
                 ):
         audio_mel = kwargs.get("audio_mel", None)
@@ -230,6 +263,12 @@ class MooerModel(nn.Module):
         
         if self.model_config.get("is_inference", False):
             return inputs_embeds, attention_mask
+        else:
+            model_outputs = self.llm(inputs_embeds=inputs_embeds, attention_mask=attention_mask, labels=labels)
+            with torch.no_grad():
+                preds = torch.argmax(model_outputs.logits, -1)
+                acc = compute_accuracy(preds.detach()[:, :-1], labels.detach()[:, 1:], ignore_label=-100)
+            return model_outputs, acc
 
     @torch.no_grad()
     def generate(self,

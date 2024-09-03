@@ -3,7 +3,7 @@
 </p>
 <br><br>
 
-<h1 align="center">MooER (摩耳): 基于8万小时训练数据的开源音频理解大模型  </h1>
+<h1 align="center">MooER (摩耳): 基于8万小时训练数据的开源音频理解大模型 </h1>
 
 <div align='center'>
     <a href='https://scholar.google.com/citations?user=eYP4TmgAAAAJ&hl=zh-CN&oi=ao' target='_blank'><u>梁镇麟</u></a><sup>†</sup>&emsp;
@@ -38,6 +38,7 @@
 
 ## 🔥 更新
 
+- **`2024/09/03`**: 我们开源了MooER的 ***训练和推理代码*** ! 你可以参考这个[教程](tutorial/train.md) 来训练你自己的音频理解大模型和不同的任务，也可以基于我们开源的80k小时的模型来微调。
 - **`2024/08/27`**: 我们推出了使用8万小时数据训练的[MooER-80K-v2](https://modelscope.cn/models/MooreThreadsSpeech/MooER-MTL-80K)，您可从下文的评测结果中找到其对应的识别效果。目前，该模型仅支持语音识别任务，支持语音翻译及多任务识别的模型随后将会推出。
 - **`2024/08/09`**: 我们推出了[基于Gradio的在线演示](https://mooer-speech.mthreads.com:10077/)。该演示系统运行在摩尔线程S4000服务器上。
 - **`2024/08/09`**: 我们开源了推理代码，并同时开放了多个基于5000小时数据训练的语音识别及语音翻译（中->英）模型。欢迎试用！
@@ -417,7 +418,7 @@ git lfs clone https://huggingface.co/mtspeech/MooER-MTL-80K
 
 ## 🏋️ 训练
 
-**即将开源，敬请期待**
+** 我们开源了MooER的 ***训练和推理代码***! 你可以参考这个[教程](tutorial/train.md) 来训练你自己的音频理解大模型和不同的任务，也可以基于我们开源的80k小时的模型来微调。**
 
 ## 🚀 推理
 
@@ -517,7 +518,7 @@ python demo/app.py \
 - [x] 发布技术报告
 - [x] 开源推理代码及5000小时数据预训练模型
 - [x] 80,000小时数据预训练的语音识别模型
-- [ ] 开源训练代码
+- [X] 开源训练代码
 - [ ] 80,000小时数据预训练的语音翻译及多任务模型
 - [ ] 基于大语言模型的音色保持语音翻译模型
 
@@ -534,7 +535,7 @@ python demo/app.py \
 
 我们使用的大语言模型相关代码借鉴自 [Qwen2](https://github.com/QwenLM/Qwen2)。
 
-我们的训练及推理代码是根据 [SLAM-LLM](https://github.com/X-LANCE/SLAM-LLM) 调整而来。
+我们的训练及推理代码是根据 [SLAM-LLM](https://github.com/X-LANCE/SLAM-LLM) 和 [wenet](https://github.com/wenet-e2e/wenet) 调整而来。
 
 我们也从许多其它的开源仓库中获得了灵感，比如 [whisper](https://github.com/openai/whisper) 和 [SeamlessM4T](https://github.com/facebookresearch/seamless_communication)。
 
