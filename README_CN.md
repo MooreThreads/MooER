@@ -333,7 +333,7 @@ git lfs clone https://huggingface.co/mtspeech/MooER-MTL-5K
 将下载后的文件放置在 `pretrained_models` 文件夹中。
 
 ```shell
-cp MooER-MTL-5K/* pretrained_models
+cp -r MooER-MTL-5K/* pretrained_models
 ```
 
 然后，下载 [`Qwen2-7B-Instruct`](https://modelscope.cn/models/qwen/qwen2-7b-instruct) ：
