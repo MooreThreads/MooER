@@ -1,4 +1,5 @@
 torch>=2.0.0
+torchaudio
 accelerate==0.33.0
 appdirs
 loralib
