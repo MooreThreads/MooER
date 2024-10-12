@@ -1,4 +1,5 @@
 import logging
+import re
 import torch
 
 
@@ -85,3 +86,10 @@ def compute_accuracy(pad_outputs, pad_targets, ignore_label):
     )
     denominator = torch.sum(mask)
     return numerator.float() / denominator.float()
+
+
+def extract_audio_token_from_string(input_str):
+    pattern = r"<A_(\d+)>"
+    matches = re.findall(pattern, input_str)
+    return [int(i) for i in matches]
+

@@ -20,3 +20,4 @@ deepspeed==0.14.4
 whisper
 soundfile
 gradio==4.41.0
+lhotse==1.27.0
