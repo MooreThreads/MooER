@@ -45,6 +45,16 @@
 - **`2024/08/09`**: We release MooER v0.1 technical report on [arXiv](https://arxiv.org/abs/2408.05101).
 
 
+## 📝 Roadmap
+
+- [x] Technical report
+- [x] Inference code and pretrained ASR/AST models using 5k hours of data
+- [x] Pretrained ASR model using 80k hours of data
+- [x] Traning code for MooER
+- [ ] Pretrained AST and multi-task models using 80k hours of data
+- [ ] LLM-based speech-to-speech translation (S2ST, Mandrin Chinese to English)
+- [ ] GPT-4o-like audio-LLM supporting chat using speech
+- [ ] LLM-based timbre-preserving Speech-to-speech translation
 
 ## 📖 Introduction
 
@@ -510,16 +520,6 @@ In the demo, using the streaming mode will yield faster results. However, please
 > ⌛ Don't have time to install the dependencies?
 >
 > **☕ Just take a coffee and click [here to try our online demo](https://mooer-speech.mthreads.com:10077/). It is running on a Moore Threads S4000 GPU server!**
-
-
-## 📝 Roadmap
-
-- [x] Technical report
-- [x] Inference code and pretrained ASR/AST models using 5k hours of data
-- [x] Pretrained ASR model using 80k hours of data
-- [x] Traning code for MooER
-- [ ] Pretrained AST and multi-task models using 80k hours of data
-- [ ] LLM-based timbre-preserving Speech-to-speech translation (S2ST)
 
 
 ## License
