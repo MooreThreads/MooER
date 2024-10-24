@@ -18,14 +18,15 @@ from mooer.models.hifigan import save_wav, get_hifigan_model, get_speaker_encode
 parser = argparse.ArgumentParser()
 parser.add_argument("--wav_path", default='demo/resources/demo.wav', type=str, help="decode one wav file")
 parser.add_argument("--wav_scp", default=None, type=str, help="decode scp if you want")
-parser.add_argument("--task", default='s2s', choices=['asr', 'ast', 's2s'], type=str, help="task: asr or ast or s2s. "
-                                                                                           "Please set ast if you choose a asr/ast/s2s multitask model")
+parser.add_argument("--task", default='s2s_chat', choices=['asr', 'ast', 's2s_trans', 's2s_chat'],
+                    type=str, help="task: asr or ast or s2s_trans or s2s_chat. "
+                                   "Please set ast if you choose a asr/ast/s2s_trans/s2s_chat multitask model")
 parser.add_argument("--batch_size", default=1, type=int, help="decode batch for scp")
-parser.add_argument("--cmvn_path", default='', type=str, help="cmvn path. If not set, will use path in src/mooer/configs/asr_config.py")
-parser.add_argument("--encoder_path", default='', type=str, help="encoder path. If not set, will use the path in src/mooer/configs/asr_config.py")
-parser.add_argument("--llm_path", default='', type=str, help="llm path. If not set, will use the path in src/mooer/configs/asr_config.py")
-parser.add_argument("--adapter_path", default='', type=str, help="adapter path. If not set, will use the path in src/mooer/configs/asr_config.py")
-parser.add_argument("--lora_dir", default='', type=str, help="lora path. If not set, will use path in src/mooer/configs/asr_config.py")
+parser.add_argument("--cmvn_path", default='', type=str, help="cmvn path.")
+parser.add_argument("--encoder_path", default='', type=str, help="encoder path.")
+parser.add_argument("--llm_path", default='', type=str, help="llm path.")
+parser.add_argument("--adapter_path", default='', type=str, help="adapter path.")
+parser.add_argument("--lora_dir", default='', type=str, help="lora path.")
 parser.add_argument("--vocoder_path", default='', type=str, help="vocoder path")
 parser.add_argument("--spk_encoder_path", default='', type=str, help="spk encoder path")
 parser.add_argument("--prompt_wav_path", default='', type=str, help="prompt wav path")
@@ -47,7 +48,8 @@ PROMPT_TEMPLATE_DICT = {
 PROMPT_DICT = {
     'asr': "Transcribe speech to text. ",
     'ast': "Translate speech to english text. ",
-    's2s': "Translate speech to english speech. ",
+    's2s_trans': "Translate speech to english speech. ",
+    's2s_chat': "Answer my question with speech. "
 }
 
 model_config = asr_config.ModelConfig()
@@ -80,6 +82,7 @@ logger.info("Response wav will save in {}".format(args.output_dir))
 
 model, tokenizer = mooer_model.init_model(
     model_config=model_config)
+AUDIO_START_TOKEN_INDEX = tokenizer.get_vocab()['<|audio_start|>']
 model.to(device)
 model.eval()
 
@@ -197,13 +200,14 @@ with torch.no_grad():
             attention_mask = torch.concat([attention_mask, teacher_forcing_input_att_mask], dim=-1)
             llm_output = model.llm(inputs_embeds=inputs_embeds, attention_mask=attention_mask,
                                    output_hidden_states=True)
-            audio_start_index = prompt_and_encoding_length + model_outputs[0].tolist().index(151646)  # <|audio_start|>
-            audio_latents = llm_output.hidden_states[-1][:, audio_start_index:-1, :]
+            audio_start_index = prompt_and_encoding_length + model_outputs[0].tolist().index(AUDIO_START_TOKEN_INDEX)
+            audio_latents = llm_output.hidden_states[-1][:, audio_start_index:-6, :]
             
             for idx, text in enumerate(output_text):
                 logger.info(f"uttid: {batch_uttids[idx]}")
                 audio_file_out_tts = os.path.join(args.output_dir, f"{batch_uttids[idx]}.tts.wav")
                 text_ast = text.split("<|audio_start|>")[0]
+                text_ast = text_ast.replace('\\n', '\n')
                 logger.info(f"AST: {text_ast}")
                 save_wav(hifigan_generator, spk_embedding, audio_latents.float(), audio_file_out_tts)
                 logger.info(f"Finished writing: {audio_file_out_tts}")
@@ -248,13 +252,14 @@ with torch.no_grad():
             attention_mask = torch.concat([attention_mask, teacher_forcing_input_att_mask], dim=-1)
             llm_output = model.llm(inputs_embeds=inputs_embeds, attention_mask=attention_mask,
                                    output_hidden_states=True)
-            audio_start_index = prompt_and_encoding_length + model_outputs[0].tolist().index(151646)  # <|audio_start|>
-            audio_latents = llm_output.hidden_states[-1][:, audio_start_index:-1, :]
+            audio_start_index = prompt_and_encoding_length + model_outputs[0].tolist().index(AUDIO_START_TOKEN_INDEX)
+            audio_latents = llm_output.hidden_states[-1][:, audio_start_index:-6, :]
             
             for text in output_text:
                 uttid = os.path.basename(wav_path).replace(".wav", "")
                 audio_file_out_tts = os.path.join(args.output_dir, f"{uttid}.tts.wav")
                 text_ast = text.split("<|audio_start|>")[0]
+                text_ast = text_ast.replace('\\n', '\n')
                 logger.info(f"AST: {text_ast}")
                 save_wav(hifigan_generator, spk_embedding, audio_latents.float(), audio_file_out_tts)
                 logger.info(f"Finished writing: {audio_file_out_tts}")
