@@ -29,6 +29,9 @@ parser.add_argument("--lora_dir", default='', type=str, help="lora path.")
 parser.add_argument("--vocoder_path", default='', type=str, help="vocoder path")
 parser.add_argument("--spk_encoder_path", default='', type=str, help="spk encoder path")
 parser.add_argument("--prompt_wav_path", default='', type=str, help="prompt wav path")
+parser.add_argument("--server_port", default=10010, type=int, help="gradio server port")
+parser.add_argument("--server_name", default="0.0.0.0", type=str, help="gradio server name")
+parser.add_argument("--share", default=False, type=lambda x: (str(x).lower() == 'true'), help="whether to share the server to public")
 args = parser.parse_args()
 
 
@@ -72,9 +75,6 @@ device = str(get_device())
 logger.info("This demo will run on {}".format(device.upper()))
 
 logger.info(model_config)
-
-os.makedirs(args.output_dir, exist_ok=True)
-logger.info("Response wav will save in {}".format(args.output_dir))
 
 model, tokenizer = mooer_model.init_model(
     model_config=model_config)

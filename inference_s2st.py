@@ -159,58 +159,61 @@ with torch.no_grad():
         uttids = list(items.keys())
         num_batches = len(uttids) // batch_size + (0 if len(uttids) % batch_size == 0 else 1)
         for i in range(num_batches):
-            batch_uttids = uttids[i * batch_size:(i + 1) * batch_size]
-            batch_wav_paths = [items[uttid] for uttid in batch_uttids]
-            samples = []
-            for wav_path in batch_wav_paths:
-                samples.append(process_wav(wav_path))
-            batch = process_batch(samples, tokenizer=tokenizer)
-            for key in batch.keys():
-                batch[key] = batch[key].to(device) if isinstance(batch[key], torch.Tensor) else batch[key]
-            with context_scope(dtype=dtype):
-                ss = time.perf_counter()
-                inputs_embeds, attention_mask, kwargs = model.generate(**batch, compute_llm=False)
-                prompt_and_encoding_length = inputs_embeds.shape[1]
-                model_outputs = model.llm.generate(
-                    inputs_embeds=inputs_embeds,
-                    max_new_tokens=kwargs.get("max_new_tokens", 1000),
-                    num_beams=kwargs.get("num_beams", 4),
-                    do_sample=True,
-                    min_length=kwargs.get("min_length", 1),
-                    top_p=0.85,
-                    repetition_penalty=kwargs.get("repetition_penalty", 1.0),
-                    length_penalty=kwargs.get("length_penalty", 1.0),
-                    temperature=kwargs.get("temperature", 1.0),
-                    attention_mask=attention_mask,
-                    bos_token_id=model.tokenizer.bos_token_id,
-                    eos_token_id=model.tokenizer.eos_token_id,
-                    pad_token_id=model.tokenizer.pad_token_id,
-                )
-                infer_time.append(time.perf_counter() - ss)
-                logging.info(f"Infer time: {time.perf_counter() - ss}")
-            output_text = model.tokenizer.batch_decode(model_outputs, add_special_tokens=False,
-                                                       skip_special_tokens=True)
-            if hasattr(model.llm.model, "embed_tokens"):
-                teacher_forcing_input_embeds = model.llm.model.embed_tokens(model_outputs)
-                teacher_forcing_input_att_mask = torch.ones((1, teacher_forcing_input_embeds.shape[1]),
-                                                            dtype=torch.bool).to(device)
-            else:
-                raise NotImplementedError
-            inputs_embeds = torch.concat([inputs_embeds, teacher_forcing_input_embeds], dim=-2)
-            attention_mask = torch.concat([attention_mask, teacher_forcing_input_att_mask], dim=-1)
-            llm_output = model.llm(inputs_embeds=inputs_embeds, attention_mask=attention_mask,
-                                   output_hidden_states=True)
-            audio_start_index = prompt_and_encoding_length + model_outputs[0].tolist().index(AUDIO_START_TOKEN_INDEX)
-            audio_latents = llm_output.hidden_states[-1][:, audio_start_index:-6, :]
-            
-            for idx, text in enumerate(output_text):
-                logger.info(f"uttid: {batch_uttids[idx]}")
-                audio_file_out_tts = os.path.join(args.output_dir, f"{batch_uttids[idx]}.tts.wav")
-                text_ast = text.split("<|audio_start|>")[0]
-                text_ast = text_ast.replace('\\n', '\n')
-                logger.info(f"AST: {text_ast}")
-                save_wav(hifigan_generator, spk_embedding, audio_latents.float(), audio_file_out_tts)
-                logger.info(f"Finished writing: {audio_file_out_tts}")
+            try:
+                batch_uttids = uttids[i * batch_size:(i + 1) * batch_size]
+                batch_wav_paths = [items[uttid] for uttid in batch_uttids]
+                samples = []
+                for wav_path in batch_wav_paths:
+                    samples.append(process_wav(wav_path))
+                batch = process_batch(samples, tokenizer=tokenizer)
+                for key in batch.keys():
+                    batch[key] = batch[key].to(device) if isinstance(batch[key], torch.Tensor) else batch[key]
+                with context_scope(dtype=dtype):
+                    ss = time.perf_counter()
+                    inputs_embeds, attention_mask, kwargs = model.generate(**batch, compute_llm=False)
+                    prompt_and_encoding_length = inputs_embeds.shape[1]
+                    model_outputs = model.llm.generate(
+                        inputs_embeds=inputs_embeds,
+                        max_new_tokens=kwargs.get("max_new_tokens", 1000),
+                        num_beams=kwargs.get("num_beams", 4),
+                        do_sample=True,
+                        min_length=kwargs.get("min_length", 1),
+                        top_p=0.85,
+                        repetition_penalty=kwargs.get("repetition_penalty", 1.0),
+                        length_penalty=kwargs.get("length_penalty", 1.0),
+                        temperature=kwargs.get("temperature", 1.0),
+                        attention_mask=attention_mask,
+                        bos_token_id=model.tokenizer.bos_token_id,
+                        eos_token_id=model.tokenizer.eos_token_id,
+                        pad_token_id=model.tokenizer.pad_token_id,
+                    )
+                    infer_time.append(time.perf_counter() - ss)
+                    logging.info(f"Infer time: {time.perf_counter() - ss}")
+                output_text = model.tokenizer.batch_decode(model_outputs, add_special_tokens=False,
+                                                           skip_special_tokens=True)
+                if hasattr(model.llm.model, "embed_tokens"):
+                    teacher_forcing_input_embeds = model.llm.model.embed_tokens(model_outputs)
+                    teacher_forcing_input_att_mask = torch.ones((1, teacher_forcing_input_embeds.shape[1]),
+                                                                dtype=torch.bool).to(device)
+                else:
+                    raise NotImplementedError
+                inputs_embeds = torch.concat([inputs_embeds, teacher_forcing_input_embeds], dim=-2)
+                attention_mask = torch.concat([attention_mask, teacher_forcing_input_att_mask], dim=-1)
+                llm_output = model.llm(inputs_embeds=inputs_embeds, attention_mask=attention_mask,
+                                       output_hidden_states=True)
+                audio_start_index = prompt_and_encoding_length + model_outputs[0].tolist().index(AUDIO_START_TOKEN_INDEX)
+                audio_latents = llm_output.hidden_states[-1][:, audio_start_index:-6, :]
+                
+                for idx, text in enumerate(output_text):
+                    logger.info(f"uttid: {batch_uttids[idx]}")
+                    audio_file_out_tts = os.path.join(args.output_dir, f"{batch_uttids[idx]}.tts.wav")
+                    text_ast = text.split("<|audio_start|>")[0]
+                    text_ast = text_ast.replace('\\n', '\n')
+                    logger.info(f"AST: {text_ast}")
+                    save_wav(hifigan_generator, spk_embedding, audio_latents.float(), audio_file_out_tts)
+                    logger.info(f"Finished writing: {audio_file_out_tts}")
+            except Exception as e:
+                logging.error(e)
         logging.info("Total inference cost")
         logging.info(sum(infer_time))
     elif args.wav_path != '' and os.path.exists(args.wav_path):
@@ -260,7 +263,7 @@ with torch.no_grad():
                 audio_file_out_tts = os.path.join(args.output_dir, f"{uttid}.tts.wav")
                 text_ast = text.split("<|audio_start|>")[0]
                 text_ast = text_ast.replace('\\n', '\n')
-                logger.info(f"AST: {text_ast}")
+                logger.info(f"Text: {text_ast}")
                 save_wav(hifigan_generator, spk_embedding, audio_latents.float(), audio_file_out_tts)
                 logger.info(f"Finished writing: {audio_file_out_tts}")
         except Exception as e:
