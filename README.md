@@ -67,7 +67,7 @@
 
 ## 📖 Introduction
 
-Hi there😄! We have updated our Omni model with the ability to **listen, think and talk**! Check our examples [here](assets/omni_demo_v1.md). Please refer to the [Inference](#inference) and [Gradio Demo](#gradio) sections for the model usage. 
+🔥 Hi there! We have updated our Omni model with the ability to **listen, think and talk**! Check our examples [here](assets/omni_demo_v1.md). Please refer to the [Download](#download), [Inference](#inference) and [Gradio Demo](#gradio) sections for the model usage. 
 
 The training procedure of our model is demonstrated in the following figure. We will release the training code and the technical report soon!
 
@@ -345,7 +345,7 @@ sudo docker run -it \
 
 ### 💾 Download Pretrained Models
 
-#### Update [2024/10/25]
+#### <span id='download'>🔥 Update [2024/10/25]</span>
 
 The new *MooER-Omni-v1* and *MooER-S2ST-v1* are available. Please download them manually and place the checkpoints in `pretrained_models`.
 
