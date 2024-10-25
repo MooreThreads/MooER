@@ -67,9 +67,9 @@
 
 ## 📖 Introduction
 
-> [!Note]
-> Hi there😄! We have updated our Omni model with the ability to **listen, think and talk**! Check our examples [here](assets/omni_demo_v1.md). Please refer to the [Inference](#inference) and [Gradio Demo]() sections for the model usage. 
->The training procedure of our model is demonstrated in the following figure. We will release the training code and the technical report soon!
+Hi there😄! We have updated our Omni model with the ability to **listen, think and talk**! Check our examples [here](assets/omni_demo_v1.md). Please refer to the [Inference](#inference) and [Gradio Demo](#gradio) sections for the model usage. 
+
+The training procedure of our model is demonstrated in the following figure. We will release the training code and the technical report soon!
 
 <br>
 <p align="center">
@@ -459,7 +459,7 @@ Finally, all these files should be orgnized as follows. The md5sum's are also pr
 
 **We have open-sourced the training and inference code for MooER! You can follow this [tutorial](tutorial/train.md) to train your own audio understanding model or fine-tune based on 80k hours model.**
 
-## 🚀 Inference
+## <span id="inference">🚀 Inference</span>
 
 You can specify your own audio files and change the model settings.
 
@@ -532,7 +532,7 @@ python inference.py -h
 
 We recommend to use an audio file shorter than 30s. The text in the audio should be less than 500 characters. It is also suggested that you convert the audio to a 16kHz 16bit mono WAV format before processing it (using `ffmpeg` or `sox`).
 
-## 🎨 Gradio Demo
+## <span id="gradio">🎨 Gradio Demo</span>
 
 We provide a Gradio interface for a better experience. To use it, run the following commands:
 
