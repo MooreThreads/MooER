@@ -1,13 +1,12 @@
 | Dataset          | Duration          |
 |---------------|---------------|
-| aishell2 |          |
+| aishell2 |     [test](https://mt-ai-speech-public.tos-cn-beijing.volces.com/mooer-omni-v1/omni_cm_a1.wav)     |
 
 | librispeech | 131h      |
 | multi_cn | 100h          |
 | wenetspeech  | 1361h     |
 | in-house data | 3274h  |
 
-[Omni.zip](https://github.com/user-attachments/files/17521340/Omni.zip)
 
 https://github.com/user-attachments/assets/ccd16a9c-d4eb-49d1-9a4c-46dd63f95931
 
