@@ -15,7 +15,7 @@
 
 
 # MooER-S2ST-v1 Examples
-| Mandarin Speech         |  Translated English        |
+| Input Mandarin         |  Translated English        |
 |---------------|---------------|
 |  [speech1](https://mt-ai-speech-public.tos-cn-beijing.volces.com/mooer-s2st-v1/s2st_june_q1.wav) | [translated_result1](https://mt-ai-speech-public.tos-cn-beijing.volces.com/mooer-s2st-v1/s2st_june_a1.wav)      |
 |  [speech2](https://mt-ai-speech-public.tos-cn-beijing.volces.com/mooer-s2st-v1/s2st_june_q2.wav) | [translated_result2](https://mt-ai-speech-public.tos-cn-beijing.volces.com/mooer-s2st-v1/s2st_june_a2.wav)      |
