@@ -3,7 +3,7 @@
 </p>
 <br><br>
 
-<h1 align="center">MooER (摩耳): Open-sourced LLM for audio understanding trained on 80,000 hours of data </h1>
+<h1 align="center">MooER: Moore-threads Open Omni model for spech-to-speech intERaction </h1>
 
 <div align='center'>
     <a href='https://scholar.google.com/citations?user=eYP4TmgAAAAJ&hl=zh-CN&oi=ao' target='_blank'><u>Zhenlin Liang</u></a><sup>†</sup>&emsp;
@@ -26,18 +26,23 @@
 <div align="center">
   <!-- <a href='LICENSE'><img src='https://img.shields.io/badge/license-MIT-yellow'></a> -->
   <a href='https://github.com/MooreThreads/MooER'><img src='https://img.shields.io/badge/Code-GitHub-yellow'></a>
-  <a href='https://arxiv.org/abs/2408.05101'><img src='https://img.shields.io/badge/Paper-arXiv-red'></a>
-  <a href='https://mooer-speech.mthreads.com:10077/'><img src='https://img.shields.io/badge/Demo-Running on S4000-purple'></a>
+  <a href='https://arxiv.org/abs/2408.05101'><img src='https://img.shields.io/badge/Paper-arXiv-cyan'></a>
+  <!-- (TBD) <a href='https://mooer-speech.mthreads.com:10077/'><img src='https://img.shields.io/badge/Demo-Running on S4000-purple'></a> -->
+  <br>
+  <a href='https://modelscope.cn/models/MooreThreadsSpeech/MooER-omni-v1'><img src='https://img.shields.io/badge/Model-ModelScope_Omni-red'></a>
+  <a href='https://modelscope.cn/models/MooreThreadsSpeech/MooER-S2ST-v1'><img src='https://img.shields.io/badge/Model-ModelScope_S2ST-red'></a>
+  <br>
+  <a href='https://modelscope.cn/models/MooreThreadsSpeech/MooER-MTL-5K'><img src='https://img.shields.io/badge/Model-ModelScope_5K-blue'></a>
+  <a href='https://modelscope.cn/models/MooreThreadsSpeech/MooER-MTL-80K'><img src='https://img.shields.io/badge/Model-ModelScope_80K-blue'></a>
   <br>
   <a href='https://huggingface.co/mtspeech/MooER-MTL-5K'><img src='https://img.shields.io/badge/Model-HuggingFace_5K-pink'></a>
   <a href='https://huggingface.co/mtspeech/MooER-MTL-80K'><img src='https://img.shields.io/badge/Model-HuggingFace_80K-pink'></a>
-  <a href='https://modelscope.cn/models/MooreThreadsSpeech/MooER-MTL-5K'><img src='https://img.shields.io/badge/Model-ModelScope_5K-blue'></a>
-  <a href='https://modelscope.cn/models/MooreThreadsSpeech/MooER-MTL-80K'><img src='https://img.shields.io/badge/Model-ModelScope_80K-blue'></a>
 </div>
 <br>
 
 ## 🔥 Updates
 
+- **`2024/10/24`**: 🎉🎉🎉 We released the new **Omni** (MooER-omni-v1) and **Speech-To-Speech Translation** (MooER-S2ST-v1) models which support Mandarin input. The Omni model can hear, think and talk to you! See [our demo here](assets/omni_demo_v1.md).
 - **`2024/09/03`**: We have open-sourced the ***training and inference code*** for MooER! You can follow this [tutorial](tutorial/train.md) to train your own audio understanding model and tasks or fine-tune based on our 80k hours model.
 - **`2024/08/27`**: We released [MooER-80K-v2](https://modelscope.cn/models/MooreThreadsSpeech/MooER-MTL-80K) which was trained using 80K hours of data. The performance of the new model can be found below. Currently, it only supports the speech recognition task. The speech translation and the multi-task models will be released soon.
 - **`2024/08/09`**: We released [a Gradio demo](https://mooer-speech.mthreads.com:10077/) running on Moore Threads S4000.
@@ -51,19 +56,30 @@
 - [x] Inference code and pretrained ASR/AST models using 5k hours of data
 - [x] Pretrained ASR model using 80k hours of data
 - [x] Traning code for MooER
+- [x] LLM-based speech-to-speech translation (S2ST, Mandrin Chinese to English)
+- [x] GPT-4o-like audio-LLM supporting chat using speech
+- [ ] **Training code** and technical report about our new Omni model
+- [ ] Omni audio-LLM that supports multi-turn conversation
 - [ ] Pretrained AST and multi-task models using 80k hours of data
-- [ ] LLM-based speech-to-speech translation (S2ST, Mandrin Chinese to English)
-- [ ] GPT-4o-like audio-LLM supporting chat using speech
 - [ ] LLM-based timbre-preserving Speech-to-speech translation
 
+
+
 ## 📖 Introduction
+
+🔥 Hi there! We have updated our Omni model with the ability to **listen, think and talk**! Check our examples [here](assets/omni_demo_v1.md). Please refer to the [Download](#download), [Inference](#inference) and [Gradio Demo](#gradio) sections for the model usage. 
+
+The training procedure of our model is demonstrated in the following figure. We will release the training code and the technical report soon!
+
+<br>
+<p align="center">
+    <img src="assets/framework_omni.png"/>
+<p>
+<br>
 
 We introduce **MooER (摩耳)**: an LLM-based speech recognition and translation model developed by Moore Threads. With the *MooER* framework, you can transcribe the speech into text (automatic speech recognition, ASR) and translate the speech into other languages (automatic speech translation, AST) in an LLM-based end-to-end manner. Some of the evaluation results of the *MooER* are presented in the subsequent section. More detailed experiments, along with our insights into model configurations, training strategies, etc, are provided in our [technical report](https://arxiv.org/abs/2408.05101).
 
 We proudly highlight that *MooER* is developed using Moore Threads S4000 GPUs. To the best of our knowledge, **this is the first LLM-based speech model trained and inferred using entirely domestic GPUs.**
-
-> [!Note]
-> We are going to release the training code for *MooER*, as well as models trained with more data. Please stay tuned!
 
 <br>
 <p align="center">
@@ -329,6 +345,44 @@ sudo docker run -it \
 
 ### 💾 Download Pretrained Models
 
+#### <span id='download'>🔥 Update [2024/10/25]</span>
+
+The new *MooER-Omni-v1* and *MooER-S2ST-v1* are available. Please download them manually and place the checkpoints in `pretrained_models`.
+
+```shell
+# MooER-Omni-v1
+git lfs clone https://modelscope.cn/models/MooreThreadsSpeech/MooER-omni-v1
+
+# MooER-S2ST-v1
+git lfs clone https://modelscope.cn/models/MooreThreadsSpeech/MooER-S2ST-v1
+```
+
+#### Update [2024/08/27]
+
+The new *MooER-80K-v2* is released. You can download the new model and update `pretrained_models`.
+
+```shell
+# use modelscope
+git lfs clone https://modelscope.cn/models/MooreThreadsSpeech/MooER-MTL-80K
+
+# use huggingface
+git lfs clone https://huggingface.co/mtspeech/MooER-MTL-80K
+```
+
+The md5sum's of the updated files are provided.
+
+```text
+./pretrained_models/
+`-- asr
+    |-- adapter_project.pt               # af9022e2853f9785cab49017a18de82c
+    `-- lora_weights
+        |-- README.md
+        |-- adapter_config.json          # ad3e3bfe9447b808b9cc16233ffacaaf
+        `-- adapter_model.bin            # 3c22b9895859b01efe49b017e8ed6ec7
+```
+
+#### Original release
+
 First, download the pretrained models from [ModelScope](https://modelscope.cn/models/MooreThreadsSpeech/MooER-MTL-5K) or [HuggingFace](https://huggingface.co/mtspeech/MooER-MTL-5K).
 
 ```shell
@@ -401,38 +455,13 @@ Finally, all these files should be orgnized as follows. The md5sum's are also pr
 `-- configuration.json
 ```
 
-#### Update [2024/08/27]
-
-The new *MooER-80K-v2* is released. You can download the new model and update `pretrained_models`.
-
-```shell
-# use modelscope
-git lfs clone https://modelscope.cn/models/MooreThreadsSpeech/MooER-MTL-80K
-
-# use huggingface
-git lfs clone https://huggingface.co/mtspeech/MooER-MTL-80K
-```
-
-The md5sum's of the updated files are provided.
-
-```text
-./pretrained_models/
-`-- asr
-    |-- adapter_project.pt               # af9022e2853f9785cab49017a18de82c
-    `-- lora_weights
-        |-- README.md
-        |-- adapter_config.json          # ad3e3bfe9447b808b9cc16233ffacaaf
-        `-- adapter_model.bin            # 3c22b9895859b01efe49b017e8ed6ec7
-```
-
-
 ## 🏋️ Training
 
 **We have open-sourced the training and inference code for MooER! You can follow this [tutorial](tutorial/train.md) to train your own audio understanding model or fine-tune based on 80k hours model.**
 
-## 🚀 Inference
+## <span id="inference">🚀 Inference</span>
 
-You can simply run the inference example to get the idea.
+You can specify your own audio files and change the model settings.
 
 ```shell
 # set environment variables
@@ -440,15 +469,35 @@ export PYTHONIOENCODING=UTF-8
 export LC_ALL=C
 export PYTHONPATH=$PWD/src:$PYTHONPATH
 
-# do inference
-python inference.py
-```
+# 🔥 Speech-to-speech chat (use the Omni model)
+python inference_s2st.py \
+  --task s2s_chat --batch_size 1 \
+  --cmvn_path pretrained_models/MooER-omni-v1/am.mvn \
+  --encoder_path pretrained_models/MooER-omni-v1/paraformer-encoder.pth \
+  --llm_path pretrained_models/MooER-omni-v1/llm \
+  --adapter_path pretrained_models/MooER-omni-v1/adapter_project.pt \
+  --lora_dir pretrained_models/MooER-omni-v1/lora \
+  --vocoder_path pretrained_models/MooER-omni-v1/g_00112000 \
+  --spk_encoder_path pretrained_models/MooER-omni-v1/spk_00112000 \
+  --prompt_wav_path pretrained_models/MooER-omni-v1/prompt.wav \
+  --wav_scp <your_wav_scp> \
+  --output_dir <your_output_dir>
 
-The script runs a multi-task model that will output the speech recognition and translation results simultaneously. If it runs successfully, you will get the ASR and AST results from the terminal.
+# Speech-to-speech translation
+python inference_s2st.py \
+  --task s2s_trans --batch_size 1 \
+  --cmvn_path pretrained_models/MooER-S2ST-v1/am.mvn \
+  --encoder_path pretrained_models/MooER-S2ST-v1/paraformer-encoder.pth \
+  --llm_path pretrained_models/MooER-S2ST-v1/llm \
+  --adapter_path pretrained_models/MooER-S2ST-v1/adapter_project.pt \
+  --lora_dir pretrained_models/MooER-S2ST-v1/lora \
+  --vocoder_path pretrained_models/MooER-S2ST-v1/g_00050000 \
+  --spk_encoder_path pretrained_models/MooER-S2ST-v1/spk_00050000 \
+  --prompt_wav_path pretrained_models/MooER-S2ST-v1/prompt.wav \
+  --wav_scp <your_wav_scp> \
+  --output_dir <your_output_dir>
 
-You can specify your own audio files and change the model settings.
 
-```shell
 # use your own audio file
 python inference.py --wav_path /path/to/your_audio_file
 
@@ -483,13 +532,39 @@ python inference.py -h
 
 We recommend to use an audio file shorter than 30s. The text in the audio should be less than 500 characters. It is also suggested that you convert the audio to a 16kHz 16bit mono WAV format before processing it (using `ffmpeg` or `sox`).
 
-## 🎨 Gradio Demo
+## <span id="gradio">🎨 Gradio Demo</span>
 
 We provide a Gradio interface for a better experience. To use it, run the following commands:
 
 ```shell
 # set the environment variables
 export PYTHONPATH=$PWD/src:$PYTHONPATH
+
+# 🔥 Run the Omni model
+python demo/app_s2s.py \
+  --task s2s_chat \
+  --cmvn_path pretrained_models/MooER-omni-v1/am.mvn \
+  --encoder_path pretrained_models/MooER-omni-v1/paraformer-encoder.pth \
+  --llm_path pretrained_models/MooER-omni-v1/llm \
+  --adapter_path pretrained_models/MooER-omni-v1/adapter_project.pt \
+  --lora_dir pretrained_models/MooER-omni-v1/lora \
+  --vocoder_path pretrained_models/MooER-omni-v1/g_00112000 \
+  --spk_encoder_path pretrained_models/MooER-omni-v1/spk_00112000 \
+  --prompt_wav_path pretrained_models/MooER-omni-v1/prompt.wav \
+  --server_port 10087
+
+# Run the speech-to-speech translation
+python demo/app_s2s.py \
+  --task s2s_trans \
+  --cmvn_path pretrained_models/MooER-S2ST-v1/am.mvn \
+  --encoder_path pretrained_models/MooER-S2ST-v1/paraformer-encoder.pth \
+  --llm_path pretrained_models/MooER-S2ST-v1/llm \
+  --adapter_path pretrained_models/MooER-S2ST-v1/adapter_project.pt \
+  --lora_dir pretrained_models/MooER-S2ST-v1/lora \
+  --vocoder_path pretrained_models/MooER-S2ST-v1/g_00050000 \
+  --spk_encoder_path pretrained_models/MooER-S2ST-v1/spk_00050000 \
+  --prompt_wav_path pretrained_models/MooER-S2ST-v1/prompt.wav \
+  --server_port 10087
 
 # Run the ASR/AST multitask model
 python demo/app.py
@@ -498,13 +573,15 @@ python demo/app.py
 python demo/app.py \
   --task asr \
   --adapter_path pretrained_models/asr/adapter_project.pt \
-  --lora_dir pretrained_models/asr/lora_weights
+  --lora_dir pretrained_models/asr/lora_weights \
+  --server_port 10087
 
 # Run the AST-only model
 python demo/app.py \
   --task ast \
   --adapter_path pretrained_models/ast/adapter_project.pt \
-  --lora_dir pretrained_models/ast/lora_weights
+  --lora_dir pretrained_models/ast/lora_weights \
+  --server_port 10087
 ```
 
 You can specify `--server_port`, `--share`, `--server_name` as needed.
