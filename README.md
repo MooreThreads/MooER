@@ -3,7 +3,7 @@
 </p>
 <br><br>
 
-<h1 align="center">MooER: Moore-threads Open Omni model for spech-to-speech intERaction </h1>
+<h1 align="center">MooER: Moore-threads Open Omni model for speech-to-speech intERaction </h1>
 
 <div align='center'>
     <a href='https://scholar.google.com/citations?user=eYP4TmgAAAAJ&hl=zh-CN&oi=ao' target='_blank'><u>Zhenlin Liang</u></a><sup>†</sup>&emsp;
