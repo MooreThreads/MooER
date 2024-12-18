@@ -60,7 +60,7 @@
 - [x] Traning code for MooER
 - [x] LLM-based speech-to-speech translation (S2ST, Mandrin Chinese to English)
 - [x] GPT-4o-like audio-LLM supporting chat using speech
-- [ ] 1.5B AST models
+- [x] 1.5B AST models
 - [ ] **Training code** and technical report about our new Omni model
 - [ ] Omni audio-LLM that supports multi-turn conversation
 - [ ] Pretrained AST and multi-task models using 80k hours of data
