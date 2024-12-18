@@ -33,6 +33,7 @@
   <a href='https://modelscope.cn/models/MooreThreadsSpeech/MooER-S2ST-v1'><img src='https://img.shields.io/badge/Model-ModelScope_S2ST-red'></a>
   <br>
   <a href='https://modelscope.cn/models/MooreThreadsSpeech/MooER-MTL-5K'><img src='https://img.shields.io/badge/Model-ModelScope_5K-blue'></a>
+  <a href='https://modelscope.cn/models/MooreThreadsSpeech/MooER-MTL-5K-1.5B'><img src='https://img.shields.io/badge/Model-ModelScope_5K_1.5B-blue'></a>
   <a href='https://modelscope.cn/models/MooreThreadsSpeech/MooER-MTL-80K'><img src='https://img.shields.io/badge/Model-ModelScope_80K-blue'></a>
   <br>
   <a href='https://huggingface.co/mtspeech/MooER-MTL-5K'><img src='https://img.shields.io/badge/Model-HuggingFace_5K-pink'></a>
@@ -42,6 +43,7 @@
 
 ## 🔥 Updates
 
+- **`2024/10/24`**: We released the 1.5B speech translation model [MooER-MTL-5K-1.5B](https://modelscope.cn/models/MooreThreadsSpeech/MooER-MTL-5K-1.5B).
 - **`2024/10/24`**: 🎉🎉🎉 We released the new **Omni** (MooER-omni-v1) and **Speech-To-Speech Translation** (MooER-S2ST-v1) models which support Mandarin input. The Omni model can hear, think and talk to you! See [our demo here](assets/omni_demo_v1.md).
 - **`2024/09/03`**: We have open-sourced the ***training and inference code*** for MooER! You can follow this [tutorial](tutorial/train.md) to train your own audio understanding model and tasks or fine-tune based on our 80k hours model.
 - **`2024/08/27`**: We released [MooER-80K-v2](https://modelscope.cn/models/MooreThreadsSpeech/MooER-MTL-80K) which was trained using 80K hours of data. The performance of the new model can be found below. Currently, it only supports the speech recognition task. The speech translation and the multi-task models will be released soon.
